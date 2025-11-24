@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>DockGenix | Molecular Docking & Simulation Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="DockGenix provides professional services in molecular docking, molecular dynamics simulation, and data analysis for computational chemistry and drug discovery." />
+
+    <!-- Optional Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary: #0a67b3;
+            --primary-dark: #064676;
+            --accent: #00b894;
+            --bg: #040811;
+            --bg-light: #0c1220;
+            --text: #f5f7ff;
+            --muted: #b3bdd9;
+            --card-bg: #121931;
+            --border-subtle: #1f2942;
+            --max-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #102040, #02040a);
+            color: var(--text);
+            scroll-behavior: smooth;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Layout helpers */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ================= RIBBON HEADER (logo left, big name) ================ */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: linear-gradient(135deg, #0a67b3 0%, #00b894 100%);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.7rem 0; /* ribbon height */
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            font-size: 2.1rem;
+            margin: 0;
+        }
+
+        .brand-tagline {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 0.15rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.92);
+            padding-bottom: 0.1rem;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 3.5rem 0 2.5rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.1rem, 3.1vw + 1rem, 3rem);
+            line-height: 1.15;
+            margin: 0 0 1rem;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 0.98rem;
+            color: var(--muted);
+            max-width: 30rem;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.8rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1.4rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.08s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: var(--primary-dark);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--muted);
+            border-color: var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            color: var(--text);
+            border-color: var(--accent);
+        }
+
+        .hero-meta {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .hero-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .hero-meta-label {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.7rem;
+            color: #8b95b7;
+        }
+
+        .hero-meta-value {
+            font-weight: 500;
+        }
+
+        /* Hero visual panel */
+        .hero-panel {
+            background: radial-gradient(circle at top left, #1c2b55, #060918);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.4rem 1.5rem;
+            box-shadow: 0 20px 60px rgba(2, 6, 23, 0.9);
+        }
+
+        .hero-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .pill {
+            border-radius: 999px;
+            padding: 0.25rem 0.7rem;
+            font-size: 0.7rem;
+            background: rgba(4, 12, 31, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-panel-main-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-panel-subtitle {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-bottom: 1.3rem;
+        }
+
+        .hero-panel-matrix {
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+            background: #050814;
+        }
+
+        .hero-panel-matrix-header {
+            padding: 0.5rem 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.74rem;
+            color: #a5afd0;
+        }
+
+        .chip {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1px;
+            background: #02030a;
+        }
+
+        .matrix-cell {
+            padding: 0.45rem 0.4rem;
+            background: linear-gradient(145deg, #05091c, #060918);
+            font-family: "SF Mono", "Consolas", ui-monospace, Menlo, Monaco, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.7rem;
+            color: #9ba6ce;
+            min-height: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .matrix-cell.highlight {
+            color: #e5f9ff;
+            background: radial-gradient(circle at top left, rgba(0, 184, 148, 0.5), #071021);
+            font-weight: 500;
+        }
+
+        .hero-panel-footer {
+            margin-top: 0.9rem;
+            font-size: 0.76rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Sections */
+        section {
+            padding: 2.8rem 0 0;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.8rem;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .section-tagline {
+            font-size: 0.9rem;
+            color: var(--muted);
+            max-width: 26rem;
+        }
+
+        /* Services */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .card {
+            background: linear-gradient(150deg, rgba(24, 33, 68, 0.95), rgba(7, 12, 32, 0.98));
+            border-radius: 1.1rem;
+            border: 1px solid var(--border-subtle);
+            padding: 1.2rem 1.25rem;
+            box-shadow: 0 16px 40px rgba(3, 7, 18, 0.7);
+        }
+
+        .card-header-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #a5afd0;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-desc {
+            font-size: 0.86rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-list {
+            font-size: 0.8rem;
+            padding-left: 1.1rem;
+            margin: 0.4rem 0 0.2rem;
+            color: #ccd4f1;
+        }
+
+        .card-list li {
+            margin-bottom: 0.25rem;
+        }
+
+        .card-meta {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.7rem;
+            opacity: 0.9;
+        }
+
+        /* Expertise / Why DockGenix */
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.6rem;
+        }
+
+        .pill-soft {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(10, 18, 43, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #c2cbf2;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+            gap: 1.6rem;
+        }
+
+        /* Book section */
+        .book-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr);
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .book-badge {
+            font-size: 0.72rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+
+        .book-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .book-subtitle {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .book-meta {
+            font-size: 0.78rem;
+            color: #c7cff2;
+            margin-bottom: 0.6rem;
+        }
+
+        .book-note {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .book-cover-img {
+            border-radius: 0.9rem;
+            max-width: 100%;
+            box-shadow: 0 16px 40px rgba(3, 7, 18, 0.8);
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 2.3fr) minmax(0, 2fr);
+            gap: 1.5rem;
+        }
+
+        .contact-box {
+            background: radial-gradient(circle at top left, #162044, #050813);
+            border-radius: 1rem;
+            border: 1px solid var(--border-subtle);
+            padding: 1.2rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .contact-item {
+            margin-bottom: 0.7rem;
+        }
+
+        .contact-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #a5afd0;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-link a {
+            font-size: 0.9rem;
+            color: #e1e7ff;
+        }
+
+        .contact-link a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding: 1.5rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        footer .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        footer a {
+            color: #c7cff2;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-grid,
+            .two-col,
+            .book-card,
+            .contact-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero {
+                padding-top: 2.4rem;
+            }
+
+            .hero-panel {
+                order: -1;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .brand-name {
+                font-size: 1.8rem;
+            }
+
+            .brand-tagline {
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                width: 65px;
+                height: 65px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .grid-3 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero {
+                padding-top: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .container {
+                padding: 0 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container nav">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="assets/images/dockgenix-logo.png" alt="DockGenix logo" />
+            </div>
+            <div class="brand-text">
+                <span class="brand-name">DockGenix</span>
+                <span class="brand-tagline">Molecular Docking &amp; Simulation</span>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#book">Book</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="container hero-grid">
+            <div>
+                <div class="hero-kicker">Computational Drug Discovery Studio</div>
+                <h1>
+                    High-quality <span>Molecular Docking</span> &amp; Dynamic Simulation Services
+                </h1>
+                <p class="hero-subtitle">
+                    DockGenix provides end-to-end in silico support: from virtual screening and binding-mode
+                    prediction to molecular dynamics, trajectory analysis, and publication-ready figures.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">Request a project discussion</a>
+                    <a href="#services" class="btn btn-secondary">View services</a>
+                </div>
+
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <span class="hero-meta-label">Focus Areas</span>
+                        <span class="hero-meta-value">Drug discovery · Biophysics · Structural biology</span>
+                    </div>
+                    <div class="hero-meta-item">
+                        <span class="hero-meta-label">Engagements</span>
+                        <span class="hero-meta-value">Academic &amp; industry collaborations worldwide</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right-side visual panel -->
+            <aside class="hero-panel" aria-label="Example DockGenix analysis snapshot">
+                <div class="hero-panel-header">
+                    <span>DockGenix • Project overview</span>
+                    <span class="pill">Confidential data safe</span>
+                </div>
+                <div class="hero-panel-main-title">Protein–Ligand Interaction Map</div>
+                <div class="hero-panel-subtitle">
+                    Virtual screening snapshot highlighting top-ranked poses and MD-validated hits.
+                </div>
+
+                <div class="hero-panel-matrix">
+                    <div class="hero-panel-matrix-header">
+                        <span>Binding site grid (Å)</span>
+                        <span class="chip">ΔG (kcal/mol)</span>
+                    </div>
+                    <div class="matrix-grid">
+                        <div class="matrix-cell">–6.5</div>
+                        <div class="matrix-cell">–7.1</div>
+                        <div class="matrix-cell highlight">–9.3</div>
+                        <div class="matrix-cell">–7.4</div>
+
+                        <div class="matrix-cell">–5.9</div>
+                        <div class="matrix-cell highlight">–8.6</div>
+                        <div class="matrix-cell">–7.8</div>
+                        <div class="matrix-cell">–6.3</div>
+
+                        <div class="matrix-cell">–6.0</div>
+                        <div class="matrix-cell">–7.2</div>
+                        <div class="matrix-cell">–8.1</div>
+                        <div class="matrix-cell highlight">–9.0</div>
+
+                        <div class="matrix-cell">–5.4</div>
+                        <div class="matrix-cell">–6.9</div>
+                        <div class="matrix-cell">–7.5</div>
+                        <div class="matrix-cell">–8.0</div>
+                    </div>
+                </div>
+
+                <div class="hero-panel-footer">
+                    <span>Quick deliverables: ranked hit list, interaction diagrams, MD stability metrics.</span>
+                    <span>Formats: PDB, DCD/XTCT, CSV, publication-quality images.</span>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="container">
+            <div class="section-heading">
+                <h2 class="section-title">Services</h2>
+                <p class="section-tagline">
+                    Modular or end-to-end support, from single-target docking to large-scale screening and
+                    complex trajectory analysis.
+                </p>
+            </div>
+
+            <div class="grid grid-3">
+                <article class="card">
+                    <div class="card-header-label">Service 01</div>
+                    <h3 class="card-title">Molecular Docking</h3>
+                    <p class="card-desc">
+                        Structure-based virtual screening and pose prediction using state-of-the-art docking engines
+                        and carefully validated workflows.
+                    </p>
+                    <ul class="card-list">
+                        <li>Protein &amp; ligand preparation and quality checks</li>
+                        <li>Binding site definition and grid generation</li>
+                        <li>Docking, scoring, and hit ranking</li>
+                        <li>Interaction analysis &amp; 2D/3D visualization</li>
+                    </ul>
+                    <div class="card-meta">
+                        Ideal for: hit identification, lead optimization, and hypothesis-driven design.
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header-label">Service 02</div>
+                    <h3 class="card-title">Molecular Dynamics (MD) Simulation</h3>
+                    <p class="card-desc">
+                        Time-resolved simulations to evaluate complex stability, binding mode robustness,
+                        and key structural changes.
+                    </p>
+                    <ul class="card-list">
+                        <li>System building (solvent, ions, force-field selection)</li>
+                        <li>Energy minimization, equilibration, production runs</li>
+                        <li>RMSD, RMSF, Rg, H-bond, SASA analysis</li>
+                        <li>Free-energy-related metrics (e.g., MM/PBSA, MM/GBSA)</li>
+                    </ul>
+                    <div class="card-meta">
+                        Ideal for: mechanism insights, stability assessments, and supporting publications.
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header-label">Service 03</div>
+                    <h3 class="card-title">Data Analysis &amp; Reporting</h3>
+                    <p class="card-desc">
+                        Clean, interpretable outputs tailored for manuscripts, theses, grant applications,
+                        and internal R&amp;D reports.
+                    </p>
+                    <ul class="card-list">
+                        <li>Custom plots and visualizations for docking/MD results</li>
+                        <li>Statistical analysis and figure standardization</li>
+                        <li>Summary slides and technical reports</li>
+                        <li>Guidance for methods and results sections</li>
+                    </ul>
+                    <div class="card-meta">
+                        Deliverables ready for direct inclusion in publications and presentations.
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERTISE / WHY -->
+    <section id="expertise">
+        <div class="container">
+            <div class="section-heading">
+                <h2 class="section-title">Scientific Expertise</h2>
+            <p class="section-tagline">
+                DockGenix combines practical experience with computational best practices to help you
+                design robust, reproducible in silico studies.
+            </p>
+            </div>
+
+            <div class="two-col">
+                <div>
+                    <div class="card">
+                        <h3 class="card-title">Why work with DockGenix?</h3>
+                        <p class="card-desc">
+                            We speak both the language of computational chemistry and experimental biology.
+                            Projects are scoped clearly, timelines are realistic, and communication is transparent.
+                        </p>
+                        <ul class="card-list">
+                            <li>Clear definition of biological question and computational design</li>
+                            <li>Reproducible workflows and documented parameters</li>
+                            <li>Support for multiple software ecosystems (open-source &amp; commercial)</li>
+                            <li>Deliverables tailored to your next milestone (paper, thesis, or internal review)</li>
+                        </ul>
+                        <div class="pill-row">
+                            <span class="pill-soft">Docking &amp; virtual screening</span>
+                            <span class="pill-soft">Classical MD simulation</span>
+                            <span class="pill-soft">Trajectory post-processing</span>
+                            <span class="pill-soft">Publishing support</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="contact-box">
+                        <p>
+                            <strong>Typical collaboration flow:</strong>
+                        </p>
+                        <ol class="card-list" style="margin-top: 0.4rem;">
+                            <li>Short call or email to define your system and goals.</li>
+                            <li>Proposal with scope, timeline, and budget.</li>
+                            <li>Regular updates with intermediate results and figures.</li>
+                            <li>Final package with raw data, analysis scripts (if requested), and report.</li>
+                        </ol>
+                        <p style="margin-top: 0.9rem;">
+                            DockGenix currently works remotely with partners worldwide, supporting both
+                            academic labs and industry teams.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOK SECTION -->
+    <section id="book">
+        <div class="container">
+            <div class="section-heading">
+                <h2 class="section-title">Book by DockGenix Founder</h2>
+            </div>
+            <div class="card book-card">
+                <div>
+                    <div class="book-badge">
+                        <span>Author resource</span> • <span>Available on Amazon</span>
+                    </div>
+                    <h3 class="book-title">
+                        Introduction to Molecular Docking
+                    </h3>
+                    <p class="book-subtitle">
+                       Introduction to Molecular Docking" offers an accessible guide to this computational technique, explaining how small molecules fit into biological targets like proteins using simple analogies. 
+                    </p>
+                    <p class="book-meta">
+                         The book covers its history, core concepts, practical applications in drug discovery and beyond, and future advancements, making complex science clear for beginners.
+                    </p>
+
+                    <div class="hero-actions" style="margin-top: 1rem;">
+                        <a class="btn btn-primary"
+                           href="https://www.amazon.com/dp/B0FY681RHC?ref_=pe_93986420_774957520"
+                           target="_blank" rel="noopener noreferrer">
+                            View the book on Amazon
+                        </a>
+                    </div>
+
+                    <p class="book-note">
+                        Note: If you provide the exact title and details, they can be added here to make
+                        the landing page fully aligned with your publication.
+                    </p>
+                </div>
+
+                <div>
+                    <img src="assets/images/book-cover.jpeg"
+                         alt="DockGenix book cover"
+                         class="book-cover-img" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-heading">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-tagline">
+                    Briefly describe your system and goals. We will respond with potential approaches and
+                    timeline estimates for your docking, MD, or analysis project.
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-box">
+                    <div class="contact-item">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-link">
+                            <a href="mailto:tusharrg007@gmail.com">tusharrg007@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">Preferred initial information</div>
+                        <ul class="card-list" style="margin-top: 0.2rem;">
+                            <li>Biological target and type of ligands</li>
+                            <li>Required services (docking, MD, analysis, or full pipeline)</li>
+                            <li>Intended use (publication, internal R&amp;D, thesis, etc.)</li>
+                            <li>Expected timelines and any specific software preferences</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="contact-box">
+                    <div class="contact-item">
+                        <div class="contact-label">Links</div>
+                        <div class="contact-link">
+                            <p>
+                                GitHub (for code &amp; examples):<br />
+                                <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+                                    https://github.com/tushar-bit-cyber
+                                </a>
+                            </p>
+                            <p>
+                                LinkedIn (for profile):<br />
+                                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                                    https://www.linkedin.com/in/tushar-gaikwad-93645018b
+                                </a>
+                            </p>
+                            <p style="font-size: 0.78rem; color: var(--muted);">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container footer-inner">
+        <span>© <span id="year">2025</span> DockGenix. All rights reserved.</span>
+        <span>Static site hosted via GitHub Pages.</span>
+    </div>
+
+    <script>
+        (function () {
+            var el = document.getElementById("year");
+            if (el) {
+                el.textContent = new Date().getFullYear();
+            }
+        })();
+    </script>
+</footer>
+</body>
+</html>
+
